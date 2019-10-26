@@ -1,0 +1,14 @@
+{
+  "name": "hypertextengine",
+  "version": "1.0.0",
+  "description": "A small engine for telling interactive narratives, based on Sculptural Hypertext.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Callum Spawforth",
+  "license": "AGPLv3",
+  "dependencies": {
+    "@types/node": "^12.11.7"
+  }
+}
