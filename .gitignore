@@ -1,0 +1,8 @@
+#Ignore compiled output
+dist
+
+#Ignore Jetbrains folder
+.idea
+
+#Ignore node-specific folders
+node_modules
