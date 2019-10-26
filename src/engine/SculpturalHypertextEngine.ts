@@ -30,9 +30,9 @@ export interface SculpturalHypertext<T extends Page> {
   state: State
 }
 
-export type FilterFunction<T extends Page> = (pages: T[], state: State) => T[];
-export type ApplyFunction<T extends Page> = (page: T, state: State) => State;
-export type ChoiceFunction<T extends Page> = (hypertext: SculpturalHypertext<T>) => Choice<T>[];
+export type FilterFunction = <T extends Page>(pages: T[], state: State) => T[];
+export type ApplyFunction = <T extends Page>(page: T, state: State) => State;
+export type ChoiceFunction = <T extends Page>(hypertext: SculpturalHypertext<T>) => Choice<T>[];
 
 //Returns a new State, with all of a Page's effects applied to it in order.
 export function ApplyPageToState<T extends Page>(page: T, currentState: State): State {
@@ -48,12 +48,12 @@ export function FilterPagesByAllConditionSatisfied<T extends Page>(pages: T[], s
 //Builds a basic choice function.
 //Applies the filter to all of the pages, to find out which pages are available.
 //Then builds a set of Choices for the available pages,
-export function BuildChoiceFunction<T extends Page>(
-    filterFunction: FilterFunction<T>,
-    applyFunction: ApplyFunction<T>
-    ): ChoiceFunction<T>
+export function BuildChoiceFunction(
+    filterFunction: FilterFunction,
+    applyFunction: ApplyFunction
+    ): ChoiceFunction
 {
-    return (hypertext: SculpturalHypertext<T>) => {
+    return <T extends Page>(hypertext: SculpturalHypertext<T>) => {
         let nextPages = filterFunction(hypertext.pages, hypertext.state);
 
         return nextPages.map(page => {
@@ -70,4 +70,4 @@ export function BuildChoiceFunction<T extends Page>(
     }
 }
 
-export let ListChoices = BuildChoiceFunction(FilterPagesByAllConditionSatisfied, ApplyPageToState);
+export let ListChoices: ChoiceFunction = BuildChoiceFunction(FilterPagesByAllConditionSatisfied, ApplyPageToState);
