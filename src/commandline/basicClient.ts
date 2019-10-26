@@ -5,3 +5,4 @@ let commandline = readline.createInterface({
    output: process.stdout,
 });
 
+commandline.write("Welcome to the command line hypertext client.");
