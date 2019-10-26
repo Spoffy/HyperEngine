@@ -37,7 +37,7 @@ export type ChoiceFunction = <T extends Page>(hypertext: SculpturalHypertext<T>)
 //Returns a new State, with all of a Page's effects applied to it in order.
 export function ApplyPageToState<T extends Page>(page: T, currentState: State): State {
   let newState = {...currentState};
-  return page.effects.reduce((lastState, effect) => effect(lastState), currentState);
+  return page.effects.reduce((lastState, effect) => effect(lastState), newState);
 };
 
 
