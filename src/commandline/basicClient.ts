@@ -26,7 +26,7 @@ async function main() {
 
     while (choices.length > 0) {
         let descriptions = choices.map((choice, index) =>
-            `[${index}]: ${choice.page.description}`
+            `[${index}]: ${choice.page.description()}`
         );
 
         let question = `Please choose a page: \n${descriptions.join("\n")}`;
@@ -42,7 +42,7 @@ async function main() {
 
         let choice = choices[choiceNumber];
 
-        commandline.write(`\n${choice.page.content}\n\n`);
+        commandline.write(`\n${choice.page.content()}\n\n`);
 
         let newHypertext = choice.choose();
 
