@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "ES5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [],
+    "lib": ["es2015"],
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "./lib"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
