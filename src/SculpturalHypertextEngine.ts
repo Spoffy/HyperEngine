@@ -30,27 +30,44 @@ export interface SculpturalHypertext<T extends Page> {
   state: State
 }
 
+export type FilterFunction<T extends Page> = (pages: T[], state: State) => T[];
+export type ApplyFunction<T extends Page> = (page: T, state: State) => State;
+export type ChoiceFunction<T extends Page> = (hypertext: SculpturalHypertext<T>) => Choice<T>[];
+
 //Returns a new State, with all of a Page's effects applied to it in order.
 export function ApplyPageToState<T extends Page>(page: T, currentState: State): State {
   let newState = {...currentState};
   return page.effects.reduce((lastState, effect) => effect(lastState), currentState);
 };
 
-//Given a hypertext, returns an array of possible choices that can be made next.
-export function NextChoices<T extends Page>(hypertext: SculpturalHypertext<T>): Choice<T>[]  {
-  //Find pages that have all of their conditions met.
-  let nextPages = hypertext.pages.filter(page => page.conditions.every(condition => condition(hypertext.state)));
 
-  return nextPages.map(page => {
-    return {
-      page: page,
-      choose: () => {
-        //Constructs a new SculpturalHypertext, with the state modified according to the page chosen.
-        return {
-          pages: hypertext.pages,
-          state: ApplyPageToState(page, hypertext.state)
-        };
-      }
-    };
-  });
-};
+export function FilterPagesByAllConditionSatisfied<T extends Page>(pages: T[], state: State): T[] {
+  return pages.filter(page => page.conditions.every(condition => condition(state)));
+}
+
+//Builds a basic choice function.
+//Applies the filter to all of the pages, to find out which pages are available.
+//Then builds a set of Choices for the available pages,
+export function BuildChoiceFunction<T extends Page>(
+    filterFunction: FilterFunction<T>,
+    applyFunction: ApplyFunction<T>
+    ): ChoiceFunction<T>
+{
+    return (hypertext: SculpturalHypertext<T>) => {
+        let nextPages = filterFunction(hypertext.pages, hypertext.state);
+
+        return nextPages.map(page => {
+            return {
+                page: page,
+                choose: () => {
+                    return {
+                        pages: hypertext.pages,
+                        state: applyFunction(page, hypertext.state)
+                    }
+                }
+            };
+        });
+    }
+}
+
+export let ListChoices = BuildChoiceFunction(FilterPagesByAllConditionSatisfied, ApplyPageToState);
