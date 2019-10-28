@@ -9,6 +9,10 @@
   "author": "Callum Spawforth",
   "license": "AGPLv3",
   "dependencies": {
-    "@types/node": "^12.11.7"
+    "@types/node": "^12.11.7",
+    "ajv": "^6.10.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.4"
   }
 }
