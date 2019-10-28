@@ -6,12 +6,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "types": ["node"],
-    "lib": ["es2015"],
+    "lib": ["es2015", "dom"],
     "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "outDir": "dist"
   },
   "exclude": [
