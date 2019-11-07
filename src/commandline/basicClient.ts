@@ -3,6 +3,9 @@ import {default as BuildStory} from "../formats/BasicTestStory";
 import {Choice, ListChoices, SculpturalHypertext} from "../engine/SculpturalHypertextEngine";
 import {BasicPage} from "../engine/BasicStory";
 
+import * as alien from "../the_destitute_and_the_alien.json";
+import Build from "../formats/StoryPlaces/StoryPlaces";
+
 let commandline = readline.createInterface({
    input: process.stdin,
    output: process.stdout,
@@ -16,10 +19,9 @@ function askQuestion(question: string): Promise<string> {
     });
 }
 
-async function main() {
-    let testStory: SculpturalHypertext<BasicPage> = BuildStory();
+async function main(story: SculpturalHypertext<BasicPage>) {
 
-    let choices: Choice<BasicPage>[] = ListChoices(testStory);
+    let choices: Choice<BasicPage>[] = ListChoices(story);
 
     commandline.write("Welcome to the command line hypertext client.\n");
     commandline.prompt();
@@ -48,6 +50,11 @@ async function main() {
 
         choices = ListChoices(newHypertext);
     }
+
+    console.log("Story finished!");
 }
 
-main();
+//console.log(Build(alien).pages);
+
+main(Build(alien));
+//main(BuildStory());

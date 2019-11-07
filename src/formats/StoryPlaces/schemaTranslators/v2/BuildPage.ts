@@ -4,8 +4,8 @@ import BuildCondition from "./BuildCondition";
 import BuildEffect from "./BuildEffect";
 
 let defaultBasicPage: BasicPage = {
-    description: () => this.hint,
-    content: () => this.pageContent,
+    description: function() {return `${this.name} - ${this.hint}`},
+    content: function() { return this.pageContent },
     conditions: [],
     effects: []
 };
