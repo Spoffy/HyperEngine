@@ -72,10 +72,13 @@ export default function BuildCondition(storyData, conditionReference): Condition
                         if(latLongDistanceMetres(currentLat, currentLon, targetLat, targetLon) < radius) {
                             return mustBeAtLocation;
                         } else {
-                            return mustBeAtLocation;
+                            return !mustBeAtLocation;
                         }
 
                     }
+                } else {
+                    //No access to location API
+                    return true;
                 }
                 return !mustBeAtLocation;
             }
