@@ -1,10 +1,8 @@
 import * as readline from "readline";
-import {default as BuildStory} from "../formats/BasicTestStory";
 import {Choice, ListChoices, SculpturalHypertext} from "../engine/SculpturalHypertextEngine";
 import {BasicPage} from "../engine/BasicStory";
-
-import * as alien from "../the_destitute_and_the_alien.json";
 import Build from "../formats/StoryPlaces/StoryPlaces";
+import * as fs from "fs";
 
 let commandline = readline.createInterface({
    input: process.stdin,
@@ -54,7 +52,10 @@ async function main(story: SculpturalHypertext<BasicPage>) {
     console.log("Story finished!");
 }
 
-//console.log(Build(alien).pages);
+let file = process.argv[2];
 
-main(Build(alien));
-//main(BuildStory());
+let storyData = JSON.parse(fs.readFileSync(file, {encoding: "UTF-8"}));
+
+main(Build(storyData));
+
+
