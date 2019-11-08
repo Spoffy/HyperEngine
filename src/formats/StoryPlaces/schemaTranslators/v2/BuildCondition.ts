@@ -1,7 +1,15 @@
 import {Condition, State} from "../../../../engine/SculpturalHypertextEngine";
 
+let trueCondition: Condition = (state: State) => true;
+
 export default function BuildCondition(storyData, conditionReference): Condition {
     let condition = storyData.conditions.find((condition) => condition.id == conditionReference);
+
+    if(!condition) {
+        console.error("[Storyplaces Translator V2] Warning: condition not found: " + conditionReference);
+        return trueCondition;
+    }
+
     switch(condition.type) {
         case "check": {
             let varRef = condition.variable;
@@ -113,4 +121,6 @@ export default function BuildCondition(storyData, conditionReference): Condition
             }
         }
     }
+    console.error("[Storyplaces Translator V2] Warning: condition type does not exist: " + condition.type);
+    return trueCondition;
 }
