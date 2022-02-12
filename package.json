@@ -10,7 +10,7 @@
   "license": "AGPLv3",
   "dependencies": {
     "@types/node": "^12.11.7",
-    "ajv": "^6.10.2"
+    "ajv": "^6.12.3"
   },
   "devDependencies": {
     "typescript": "^3.6.4"
